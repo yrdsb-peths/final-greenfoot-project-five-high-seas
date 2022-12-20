@@ -8,7 +8,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Shooter extends Actor
 {
-    int speed = 1;
+    int speed = 2;
     
     public Shooter()
     {
@@ -22,16 +22,28 @@ public class Shooter extends Actor
      */
     public void act()
     {
-        // Add your action code here.
         
+        // Using "a" and left arrow keys to move left
         if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))
         {
-            move(-(speed));
+            setLocation(getX() - speed, getY());
         }
-        
+        // Using "d" and right arrow keys to move right
         if(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d"))
         {
-            move(speed);
+            setLocation(getX() + speed, getY());
         }
+        // Using "w" and up arrow keys to move up
+        if(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w"))
+        {
+            setLocation(getX(), getY() - speed);
+        }
+        // Using "s" and down arrow keys to move down
+        if(Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("s"))
+        {
+            setLocation(getX(), getY() + speed);
+        }
+        
+        
     }
 }
