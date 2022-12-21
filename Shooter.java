@@ -8,8 +8,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Shooter extends Actor
 {
-    int speed = 2;
-    
+    int speed = 4;
+    int gravity = 2;
     public Shooter()
     {
         GreenfootImage shooter = new GreenfootImage("rocket.png");
@@ -22,7 +22,7 @@ public class Shooter extends Actor
      */
     public void act()
     {
-        
+        fall();
         // Using "a" and left arrow keys to move left
         if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))
         {
@@ -44,6 +44,12 @@ public class Shooter extends Actor
             setLocation(getX(), getY() + speed);
         }
         
+    }
+    
+    public void fall()
+    {
+        setLocation(getX(), getY() + gravity);
         
     }
+    
 }
