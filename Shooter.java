@@ -9,12 +9,15 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Shooter extends Actor
 {
     int speed = 4;
-    int gravity = 2;
+    int gravity = 4;
     public Shooter()
     {
+        // Sets image to rocket
         GreenfootImage shooter = new GreenfootImage("rocket.png");
-        
+        shooter.scale(50, 25);
         setImage(shooter);
+        
+        
     }
     /**
      * Act - do whatever the Shooter wants to do. This method is called whenever
@@ -22,7 +25,7 @@ public class Shooter extends Actor
      */
     public void act()
     {
-        fall();
+        checkFall();
         // Using "a" and left arrow keys to move left
         if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))
         {
@@ -38,18 +41,60 @@ public class Shooter extends Actor
         {
             setLocation(getX(), getY() - speed);
         }
+        /*
         // Using "s" and down arrow keys to move down
         if(Greenfoot.isKeyDown("down") || Greenfoot.isKeyDown("s"))
         {
-            setLocation(getX(), getY() + speed);
+            setLocation(getX(), getY() + speed/2);
         }
-        
+        */
     }
     
     public void fall()
     {
         setLocation(getX(), getY() + gravity);
+    }
+    
+    public void checkFall()
+    {
+        while(onGround() == true)
+        {
+            gravity = 0;
+        }
+        if(onGround() == false)
+        {
+            gravity = 2;
+            fall();
+        }
+    }
+    
+    public boolean onGround()
+    {
+        int spriteHeight = getImage().getHeight();
+        int lookForGround = spriteHeight/2;
         
+        Actor ground = getOneObjectAtOffset(0, lookForGround,
+        Platform.class);
+        
+        if(ground == null)
+        {
+            return false;
+        }
+        else
+        {
+            moveToGround(ground);
+            
+        }
+        return true;
+    }
+    
+    public void moveToGround(Actor ground)
+    {
+        int groundHeight = ground.getImage().getHeight();
+        int newY = ground.getY() -
+        (groundHeight + getImage().getHeight())/2;
+        
+        setLocation(getX(), newY);
     }
     
 }

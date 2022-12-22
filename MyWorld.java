@@ -22,6 +22,10 @@ public class MyWorld extends World
         Shooter shooter = new Shooter();
         addObject(shooter, 300, 300);
         
+        Platform tile = new Platform();
+        
+        addObject(tile, 100, 100);
+        
     }
     
     
