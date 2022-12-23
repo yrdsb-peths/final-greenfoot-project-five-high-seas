@@ -19,7 +19,6 @@ public class Label extends Actor
     private Color fillColor = Color.WHITE;
     
     private static final Color transparent = new Color(0,0,0,0);
-
     
     /**
      * Create a new label, initialise it with the int value to be shown and the font size 

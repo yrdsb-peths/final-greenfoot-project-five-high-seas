@@ -4,7 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Write a description of class MyWorld here.
  * 
  * @author (Vincent) 
- * @version (version1 | 12/19/2022)
+ * @version (version2 | 12/22/2022)
  */
 public class MyWorld extends World
 {
@@ -21,6 +21,10 @@ public class MyWorld extends World
         
         Shooter shooter = new Shooter();
         addObject(shooter, 300, 300);
+        
+        Platform tile = new Platform();
+        
+        addObject(tile, 100, 100);
         
     }
     
