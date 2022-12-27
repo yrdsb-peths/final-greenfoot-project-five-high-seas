@@ -6,52 +6,61 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * @author (Vincent) 
  * @version (version3 | 12/22/2022)
  */
-public class Shooter extends Actor
+public class Penguin extends Actor
 {
-    // Sets speed of movement and creates gravity
+    // Sets speed of movement to 4 and creates gravity
     int speed = 4;
     int gravity;
     
     // Sets penguin to face right and creates arrays storing
-    // 4 images to animate
+    // 5 total images to animate walk cycle
     String facingDirection = "right";
     SimpleTimer animationSpeed = new SimpleTimer();
     
+    // Creates arrays for walk cycles left and right
     GreenfootImage[] walkingRight = new GreenfootImage[4];
     GreenfootImage[] walkingLeft = new GreenfootImage[4];
     
     GreenfootImage[] glidingRight = new GreenfootImage[6];
     GreenfootImage[] glidingLeft = new GreenfootImage[6];
     
-    public Shooter()
+    public Penguin()
     {
-        // Sets image to penguin.png and scales it down to use
+        // Sets penguin image to idle facing right when a
+        // OBJECT is created and then scales it down
         GreenfootImage idleImage = new 
-            GreenfootImage("idle_penguin_jetpack.png");
+            GreenfootImage("images/idle_penguin_jetpack.png");
         idleImage.scale(idleImage.getWidth()/30, 
         idleImage.getHeight()/30);
         
         animationSpeed.mark();
         setImage(idleImage);
         
-        // Takes the image file name and puts it into the game
+        // Creates an image of idle penguin FACING LEFT
+        GreenfootImage idleLeft = new 
+            GreenfootImage("images/idle_penguin_jetpack.png");
+        idleLeft.mirrorHorizontally();
+        idleLeft.scale(idleImage.getWidth(), 
+            idleImage.getHeight());
+        
+        // Fills image array for walking right
         for(int i = 0; i < walkingRight.length; i++)
         {
             walkingRight[i] = new 
-            GreenfootImage("images/penguin_walk/penguin_walk" 
-            + i + ".png");
+                GreenfootImage("images/penguin_walk/penguin_walk" 
+                + i + ".png");
             walkingRight[i].scale(idleImage.getWidth(), 
-            idleImage.getHeight());
+                idleImage.getHeight());
         }
-        // Takes the image and flips it so the elephant faces LEFT
+        // Fills image array for walking left
         for(int i = 0; i < walkingLeft.length; i++)
         {
             walkingLeft[i] = new 
-            GreenfootImage("images/penguin_walk/penguin_walk" 
-            + i + ".png");
+                GreenfootImage("images/penguin_walk/penguin_walk" 
+                + i + ".png");
             walkingLeft[i].mirrorHorizontally();
             walkingLeft[i].scale(idleImage.getWidth(), 
-            idleImage.getHeight());
+                idleImage.getHeight());
         }
         
     }
@@ -152,8 +161,10 @@ public class Shooter extends Actor
         {
             return;
         }
+        
         // Takes note of the time for next cycle
         animationSpeed.mark();
+        
         // If ON ground, the if/else statement changes the
         // image depending on if user presses right or left
         if(facingDirection.equals("right"))

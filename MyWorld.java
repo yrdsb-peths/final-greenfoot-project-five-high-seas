@@ -19,7 +19,7 @@ public class MyWorld extends World
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1);
         
-        Shooter penguin  = new Shooter();
+        Penguin penguin  = new Penguin();
         addObject(penguin, 300, 300);
         
         Platform tile = new Platform();
