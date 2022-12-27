@@ -22,9 +22,12 @@ public class MyWorld extends World
         Penguin penguin  = new Penguin();
         addObject(penguin, 300, 300);
         
-        Platform tile = new Platform();
+        Platform tile1 = new Platform();
         
-        addObject(tile, 100, 100);
+        addObject(tile1, 500, 100);
+        
+        Platform tile2 = new Platform();
+        addObject(tile2, 300, 200);
         
     }
     
