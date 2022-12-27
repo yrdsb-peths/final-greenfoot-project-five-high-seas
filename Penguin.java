@@ -24,12 +24,18 @@ public class Penguin extends Actor
     GreenfootImage[] glidingRight = new GreenfootImage[6];
     GreenfootImage[] glidingLeft = new GreenfootImage[6];
     
+    GreenfootImage idleImage = new 
+            GreenfootImage("images/idle_penguin_jetpack.png");
+    
+    GreenfootImage idleLeft = new 
+            GreenfootImage("images/idle_penguin_jetpack.png");
+        
+
     public Penguin()
     {
         // Sets penguin image to idle facing right when a
         // OBJECT is created and then scales it down
-        GreenfootImage idleImage = new 
-            GreenfootImage("images/idle_penguin_jetpack.png");
+        
         idleImage.scale(idleImage.getWidth()/30, 
         idleImage.getHeight()/30);
         
@@ -37,8 +43,7 @@ public class Penguin extends Actor
         setImage(idleImage);
         
         // Creates an image of idle penguin FACING LEFT
-        GreenfootImage idleLeft = new 
-            GreenfootImage("images/idle_penguin_jetpack.png");
+        
         idleLeft.mirrorHorizontally();
         idleLeft.scale(idleImage.getWidth(), 
             idleImage.getHeight());
@@ -119,7 +124,7 @@ public class Penguin extends Actor
     public void fall()
     {
         setLocation(getX(), getY() + gravity);
-        
+        switchDirection();
         gravity += 1;
     }
     
@@ -181,4 +186,15 @@ public class Penguin extends Actor
         }
     }
     
+    public void switchDirection()
+    {
+        if(facingDirection.equals("right"))
+        {
+            setImage(idleImage);
+        }
+        if(facingDirection.equals("left"))
+        {
+            setImage(idleLeft);
+        }
+    }
 }
