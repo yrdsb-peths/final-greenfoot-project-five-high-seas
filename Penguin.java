@@ -119,6 +119,7 @@ public class Penguin extends Actor
         if(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w"))
         {
             setLocation(getX(), getY() - speed - gravity);
+            flyDirection();
         }
         
         
@@ -130,14 +131,6 @@ public class Penguin extends Actor
         if(onGround() == true)
         {
             gravity = 0;
-            if(facingDirection.equals("right"))
-            {
-                setImage(idleImage);
-            }
-            else
-            {
-                setImage(idleLeft);
-            }
         }
         if(onGround() == false)
         {
@@ -149,7 +142,7 @@ public class Penguin extends Actor
     public void fall()
     {
         setLocation(getX(), getY() + gravity);
-        gravity += 1;
+        fallDirection();
     }
     
     public boolean onGround()
@@ -162,7 +155,7 @@ public class Penguin extends Actor
         
         if(ground == null)
         {
-            fallDirection();
+            
             return false;
         }
         else
@@ -208,6 +201,18 @@ public class Penguin extends Actor
             setImage(walkingLeft[imageIndex]);
             imageIndex =
                 (imageIndex + 1) % walkingLeft.length;
+        }
+    }
+    
+    public void flyDirection()
+    {
+        if(facingDirection.equals("right"))
+        {
+            setImage(flyingRight);
+        }
+        if(facingDirection.equals("left"))
+        {
+            setImage(flyingLeft);
         }
     }
     
