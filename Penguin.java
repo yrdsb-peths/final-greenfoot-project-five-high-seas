@@ -76,7 +76,7 @@ public class Penguin extends Actor
             walkingLeft[i].scale(idleImage.getWidth(), 
                 idleImage.getHeight());
         }
-        
+        // Scaling down the penguin images for flying
         flyingRight.scale(idleImage.getWidth(),
             idleImage.getHeight());
         
@@ -128,6 +128,8 @@ public class Penguin extends Actor
     
     public void checkFall()
     {
+        // If on ground, stop gravity (don't fall through
+        // platform), if not, have gravity and penguin falls
         if(onGround() == true)
         {
             gravity = 0;
@@ -141,6 +143,8 @@ public class Penguin extends Actor
     
     public void fall()
     {
+        // Constantly sets penguin's location to 2 pixels
+        // below the previous, change penguin's orientation
         setLocation(getX(), getY() + gravity);
         fallDirection();
     }
@@ -155,7 +159,6 @@ public class Penguin extends Actor
         
         if(ground == null)
         {
-            
             return false;
         }
         else

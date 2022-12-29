@@ -27,7 +27,7 @@ public class MyWorld extends World
         addObject(tile1, 500, 100);
         
         Platform tile2 = new Platform();
-        addObject(tile2, 300, 200);
+        addObject(tile2, 200, 200);
         
     }
     
