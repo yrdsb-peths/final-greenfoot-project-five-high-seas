@@ -29,6 +29,9 @@ public class MyWorld extends World
         Platform tile2 = new Platform();
         addObject(tile2, 200, 200);
         
+        Enemy snowman = new Enemy();
+        addObject(snowman, 150, 100);
+        
     }
     
     

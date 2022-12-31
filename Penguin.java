@@ -9,9 +9,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Penguin extends Actor
 {
     // Sets speed of movement to 4 and creates gravity
-    int speed = 4;
-    int gravity;
+    public int speed = 4;
+    public int gravity;
     
+    public int snowballSpeed = 20;
     // Sets penguin to face right and creates arrays storing
     // 5 total images to animate walk cycle
     String facingDirection = "right";
@@ -20,9 +21,6 @@ public class Penguin extends Actor
     // Creates arrays for walk cycles left and right
     GreenfootImage[] walkingRight = new GreenfootImage[4];
     GreenfootImage[] walkingLeft = new GreenfootImage[4];
-    
-    GreenfootImage[] glidingRight = new GreenfootImage[6];
-    GreenfootImage[] glidingLeft = new GreenfootImage[6];
     
     // Creates objects for idle images
     GreenfootImage idleImage = new 
@@ -97,6 +95,7 @@ public class Penguin extends Actor
      * Act - do whatever the Shooter wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    private int time = 0;
     public void act()
     {
         // Checks if on a platform, if not the penguin falls
@@ -107,6 +106,7 @@ public class Penguin extends Actor
             setLocation(getX() - speed, getY());
             facingDirection = "left";
             animateWalk();
+            snowballSpeed = -20;
         }
         // Using "d" and right arrow keys to move right
         if(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d"))
@@ -114,6 +114,7 @@ public class Penguin extends Actor
             setLocation(getX() + speed, getY());
             facingDirection = "right";
             animateWalk();
+            snowballSpeed = 20;
         }
         // Using "w" and up arrow keys to move up
         if(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w"))
@@ -122,7 +123,21 @@ public class Penguin extends Actor
             flyDirection();
         }
         
-        
+        if(Greenfoot.isKeyDown("space"))
+        {
+            if (time <= 0) 
+            {
+                getWorld().addObject(new 
+                    Snowball(snowballSpeed), getX(),
+                    getY());
+                
+                time = 5;
+            }   
+            else 
+            {
+                time--;
+            }
+        }
         
     }
     
@@ -178,7 +193,7 @@ public class Penguin extends Actor
     }
     
     // Image index sets the arrays to 0 (first image)
-    int imageIndex = 0;
+    public int imageIndex = 0;
     public void animateWalk()
     {
         // If penguin is not on ground or 42 milliseconds

@@ -11,7 +11,7 @@ public class Platform extends Actor
     public Platform()
     {
         GreenfootImage tempIce = new GreenfootImage("tempIce.png");
-        tempIce.scale(200, 50);
+        tempIce.scale(200, 20);
         setImage(tempIce);
     }
     
