@@ -144,11 +144,12 @@ public class Enemy extends Actor
         world.removeObject(snowball);        
         // Reduces the health of snowman by 1
         health--;
-        speed = speed - 2;
+        speed = speed + (speed/2);
         if(health == 0)
         {
             world.removeObject(this);
             world.spawnSnowman();
+            world.increaseScore();
             return;
         }
         GreenfootImage currentSnowman = new 
