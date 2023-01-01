@@ -9,7 +9,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class Penguin extends Actor
 {
     // Sets speed of movement to 4 and creates gravity
-    public int speed = 4;
+    public int speed = 5;
     public int gravity;
     
     public int snowballSpeed = 20;
@@ -131,11 +131,11 @@ public class Penguin extends Actor
         {
             if(time <= 0) 
             {
+                time = 5;
                 getWorld().addObject(new 
                     Snowball(snowballSpeed), getX(),
                     getY());
                 
-                time = 5;
             }   
             else 
             {
@@ -155,7 +155,7 @@ public class Penguin extends Actor
         }
         if(onGround() == false)
         {
-            gravity = 2;
+            gravity = 4;
             fall();
         }
     }

@@ -10,7 +10,7 @@ public class Enemy extends Actor
 {
     // Sets the speed, gravity and health of snowman
     public int speed = 4;
-    public int gravity = 2;
+    public int gravity;
     public int health = 3;
     
     // Gets image's height and width to make into integers
@@ -56,7 +56,7 @@ public class Enemy extends Actor
         }
         if(onGround() == false)
         {
-            gravity = 2;
+            gravity = 4;
             fall();
         }
     }
@@ -135,27 +135,26 @@ public class Enemy extends Actor
     
     public void damage()
     {
+        // Gets the snowball and world classes to edit
+        // and put into the damage() scope of Enemy.java
         Actor snowball = 
             getOneIntersectingObject(Snowball.class);
         MyWorld world = (MyWorld) getWorld();
-        
-        world.removeObject(snowball);
-        
-        if(health > 0) 
+        // Removes the snowball when it hits the snowman
+        world.removeObject(snowball);        
+        // Reduces the health of snowman by 1
+        health--;
+        speed = speed - 2;
+        if(health == 0)
         {
-            health--;
-            speed = speed - 2;
-            if(health == 0)
-            {
-                world.removeObject(this);
-                world.spawnSnowman();
-                return;
-            }
-            GreenfootImage currentSnowman = new 
-                GreenfootImage("images/snowman/snowman" 
-                + health + ".png");
-            currentSnowman.scale(25 * health, 24 * health);
-            setImage(currentSnowman);
+            world.removeObject(this);
+            world.spawnSnowman();
+            return;
         }
+        GreenfootImage currentSnowman = new 
+            GreenfootImage("images/snowman/snowman" 
+            + health + ".png");
+        currentSnowman.scale(25 * health, 24 * health);
+        setImage(currentSnowman);
     }
 }
