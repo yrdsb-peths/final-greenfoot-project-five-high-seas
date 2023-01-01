@@ -8,10 +8,10 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Enemy extends Actor
 {
-    // Sets the speed and gravity of object
+    // Sets the speed, gravity and health of snowman
     public int speed = 4;
     public int gravity = 2;
-    public int health = 5;
+    public int health = 3;
     
     // Gets image's height and width to make into integers
     public int spriteHeight = getImage().getHeight();
@@ -23,15 +23,15 @@ public class Enemy extends Actor
     public int lookForEdge = spriteWidth/4;
     public int lookForGround = spriteHeight/2;
     
-    GreenfootImage snowman = new 
-    GreenfootImage("images/snowman_left_1.png");
+    GreenfootImage snowmanFull = new 
+    GreenfootImage("images/snowman/snowman3.png");
     
     public Enemy()
     {
-        snowman.scale(snowman.getWidth()/3, 
-            snowman.getHeight()/3);
+        snowmanFull.scale(snowmanFull.getWidth()/3, 
+            snowmanFull.getHeight()/3);
         
-        setImage(snowman);
+        setImage(snowmanFull);
     }
     
     /**
@@ -43,7 +43,7 @@ public class Enemy extends Actor
     {
         checkFall();
         moveBadGuy();
-        
+        getsHit();
     }
     
     public void checkFall()
@@ -125,4 +125,37 @@ public class Enemy extends Actor
         
     }
     
+    public void getsHit()
+    {
+        if(isTouching(Snowball.class))
+        {
+            damage();
+        }
+    }
+    
+    public void damage()
+    {
+        Actor snowball = 
+            getOneIntersectingObject(Snowball.class);
+        MyWorld world = (MyWorld) getWorld();
+        
+        world.removeObject(snowball);
+        
+        if(health > 0) 
+        {
+            health--;
+            speed = speed - 2;
+            if(health == 0)
+            {
+                world.removeObject(this);
+                world.spawnSnowman();
+                return;
+            }
+            GreenfootImage currentSnowman = new 
+                GreenfootImage("images/snowman/snowman" 
+                + health + ".png");
+            currentSnowman.scale(25 * health, 24 * health);
+            setImage(currentSnowman);
+        }
+    }
 }

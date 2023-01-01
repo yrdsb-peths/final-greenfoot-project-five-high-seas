@@ -34,5 +34,12 @@ public class MyWorld extends World
         
     }
     
+    public void spawnSnowman()
+    {
+        Enemy snowman = new Enemy();
+        int x = Greenfoot.getRandomNumber(600);
+        int y = Greenfoot.getRandomNumber(400);
+        addObject(snowman, x, y);
+    }
     
 }

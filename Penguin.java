@@ -95,6 +95,8 @@ public class Penguin extends Actor
      * Act - do whatever the Shooter wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
      */
+    // The time integer controls the speed the snowballs are
+    // thrown by the penguin
     private int time = 0;
     public void act()
     {
@@ -122,10 +124,12 @@ public class Penguin extends Actor
             setLocation(getX(), getY() - speed - gravity);
             flyDirection();
         }
-        
+        // If the spacebar is pressed and 5 cycles have
+        // passed, create a snowball object at same location
+        // as the penguin, firing the snowball
         if(Greenfoot.isKeyDown("space"))
         {
-            if (time <= 0) 
+            if(time <= 0) 
             {
                 getWorld().addObject(new 
                     Snowball(snowballSpeed), getX(),
