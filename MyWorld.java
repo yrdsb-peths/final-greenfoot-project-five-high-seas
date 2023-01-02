@@ -48,7 +48,7 @@ public class MyWorld extends World
     {
         Enemy snowman = new Enemy();
         int x = Greenfoot.getRandomNumber(600);
-        int y = Greenfoot.getRandomNumber(400);
+        int y = Greenfoot.getRandomNumber(350);
         addObject(snowman, x, y);
     }
 
@@ -60,10 +60,10 @@ public class MyWorld extends World
     {
         Platform platform = new Platform();
         addObject(platform,154,369);
-        platform.setLocation(98,388);
+        platform.setLocation(98,395);
         Platform platform2 = new Platform();
         addObject(platform2,330,388);
-        platform2.setLocation(500,388);
+        platform2.setLocation(500,395);
         Platform platform3 = new Platform();
         addObject(platform3,453,247);
         platform3.setLocation(508,222);
@@ -74,6 +74,6 @@ public class MyWorld extends World
         platform5.setLocation(526,98);
         Platform platform6 = new Platform();
         addObject(platform6,554,309);
-        platform6.setLocation(300, 388);
+        platform6.setLocation(300, 395);
     }
 }
