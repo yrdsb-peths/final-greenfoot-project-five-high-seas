@@ -11,6 +11,7 @@ public class Penguin extends Actor
     // Sets speed of movement to 4 and creates gravity
     public int speed = 5;
     public int gravity;
+    public int health = 5;
     
     public int snowballSpeed = 20;
     // Sets penguin to face right and creates arrays storing
@@ -143,6 +144,7 @@ public class Penguin extends Actor
             }
         }
         
+        getsHurt();
     }
     
     public void checkFall()
@@ -250,5 +252,21 @@ public class Penguin extends Actor
         }
     }
     
+    public void getsHurt()
+    {
+        if(isTouching(Enemy.class))
+        {
+            health--;
+            if(health == 0)
+            {
+                dies();
+            }
+        }
+    }
     
+    public void dies()
+    {
+        MyWorld world = (MyWorld) getWorld();
+        world.removeObject(this);
+    }
 }
