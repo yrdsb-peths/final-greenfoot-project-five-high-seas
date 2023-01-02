@@ -8,10 +8,18 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class Platform extends Actor
 {
+    GreenfootImage tempIce = new 
+        GreenfootImage("tempIce.png");
+    
     public Platform()
     {
-        GreenfootImage tempIce = new GreenfootImage("tempIce.png");
-        tempIce.scale(205, 25);
+        tempIce.scale(200, 20);
+        setImage(tempIce);
+    }
+    
+    public Platform(int length, int width)
+    {
+        tempIce.scale(length, width);
         setImage(tempIce);
     }
     
