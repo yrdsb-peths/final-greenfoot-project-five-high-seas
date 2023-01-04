@@ -49,6 +49,7 @@ public class Penguin extends Actor
             idleImage.getHeight()/30);
         
         animationSpeed.mark();
+        hurtSpeed.mark();
         setImage(idleImage);
         
         // Creates an image of idle penguin FACING LEFT
@@ -252,11 +253,16 @@ public class Penguin extends Actor
         }
     }
     
+    SimpleTimer hurtSpeed = new SimpleTimer();
     public void getsHurt()
     {
         if(isTouching(Enemy.class))
         {
-            health--;
+            if(hurtSpeed.millisElapsed() >= 100)
+            {
+                health--;
+            }
+            hurtSpeed.mark();
             if(health == 0)
             {
                 dies();
