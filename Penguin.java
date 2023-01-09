@@ -41,6 +41,11 @@ public class Penguin extends Actor
     GreenfootImage fallingLeft = new
         GreenfootImage("images/falling_penguin_jetpack.png");
     
+    GreenfootImage hurtRight = new
+        GreenfootImage("images/penguin_hurt.png");
+    GreenfootImage hurtLeft = new
+        GreenfootImage("images/penguin_hurt.png");
+    
     public Penguin()
     {
         // Sets penguin image to idle facing right when a
@@ -90,6 +95,13 @@ public class Penguin extends Actor
         
         fallingLeft.mirrorHorizontally();
         fallingLeft.scale(idleImage.getWidth(),
+            idleImage.getHeight());
+        
+        hurtRight.scale(idleImage.getWidth(),
+            idleImage.getHeight());
+        
+        hurtLeft.mirrorHorizontally();
+        hurtLeft.scale(idleImage.getWidth(),
             idleImage.getHeight());
     }
     
@@ -258,8 +270,16 @@ public class Penguin extends Actor
     {
         if(isTouching(Enemy.class))
         {
-            if(hurtSpeed.millisElapsed() >= 100)
+            if(hurtSpeed.millisElapsed() >= 500)
             {
+                if(facingDirection.equals("right"))
+                {
+                    setImage(hurtRight);
+                }
+                if(facingDirection.equals("left"))
+                {
+                    setImage(hurtLeft);
+                }
                 health--;
             }
             hurtSpeed.mark();
