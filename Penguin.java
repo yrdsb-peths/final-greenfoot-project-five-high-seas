@@ -114,50 +114,56 @@ public class Penguin extends Actor
     private int time = 0;
     public void act()
     {
-        // Checks if on a platform, if not the penguin falls
-        checkFall();
-        // Using "a" and left arrow keys to move left
-        if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))
+        if(!isTouching(Enemy.class))
         {
-            setLocation(getX() - speed, getY());
-            facingDirection = "left";
-            animateWalk();
-            snowballSpeed = -20;
-        }
-        // Using "d" and right arrow keys to move right
-        if(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d"))
-        {
-            setLocation(getX() + speed, getY());
-            facingDirection = "right";
-            animateWalk();
-            snowballSpeed = 20;
-        }
-        // Using "w" and up arrow keys to move up
-        if(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w"))
-        {
-            setLocation(getX(), getY() - speed - gravity);
-            flyDirection();
-        }
-        // If the spacebar is pressed and 5 cycles have
-        // passed, create a snowball object at same location
-        // as the penguin, firing the snowball
-        if(Greenfoot.isKeyDown("space"))
-        {
-            if(time <= 0) 
+            // Checks if on a platform, if not the penguin falls
+            checkFall();
+            // Using "a" and left arrow keys to move left
+            if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))
             {
-                time = 5;
-                getWorld().addObject(new 
-                    Snowball(snowballSpeed), getX(),
-                    getY());
-                
-            }   
-            else 
+                setLocation(getX() - speed, getY());
+                facingDirection = "left";
+                animateWalk();
+                snowballSpeed = -20;
+            }
+            // Using "d" and right arrow keys to move right
+            if(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d"))
             {
-                time--;
+                setLocation(getX() + speed, getY());
+                facingDirection = "right";
+                animateWalk();
+                snowballSpeed = 20;
+            }
+            // Using "w" and up arrow keys to move up
+            if(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w"))
+            {
+                setLocation(getX(), getY() - speed - gravity);
+                flyDirection();
+            }
+            // If the spacebar is pressed and 5 cycles have
+            // passed, create a snowball object at same location
+            // as the penguin, firing the snowball
+            if(Greenfoot.isKeyDown("space"))
+            {
+                if(time <= 0) 
+                {
+                    time = 5;
+                    getWorld().addObject(new 
+                        Snowball(snowballSpeed), getX(),
+                        getY());
+                    
+                }   
+                else 
+                {
+                    time--;
+                }
             }
         }
         
-        getsHurt();
+        if(isTouching(Enemy.class))
+        {
+            getsHurt();
+        }
     }
     
     public void checkFall()
@@ -264,29 +270,31 @@ public class Penguin extends Actor
             setImage(fallingLeft);
         }
     }
-    
+    SimpleTimer hurtImageSpeed = new SimpleTimer();
     SimpleTimer hurtSpeed = new SimpleTimer();
     public void getsHurt()
     {
-        if(isTouching(Enemy.class))
+        
+        if(hurtSpeed.millisElapsed() >= 200)
         {
-            if(hurtSpeed.millisElapsed() >= 500)
+            health--;
+        }
+        hurtSpeed.mark();
+        if(health == 0)
+        {
+            dies();
+        }
+        if(hurtImageSpeed.millisElapsed() <= 5000)
+        {
+            if(facingDirection.equals("right"))
             {
-                if(facingDirection.equals("right"))
-                {
-                    setImage(hurtRight);
-                }
-                if(facingDirection.equals("left"))
-                {
-                    setImage(hurtLeft);
-                }
-                health--;
+                setImage(hurtRight);
             }
-            hurtSpeed.mark();
-            if(health == 0)
+            if(facingDirection.equals("left"))
             {
-                dies();
+                setImage(hurtLeft);
             }
+            hurtImageSpeed.mark();
         }
     }
     
