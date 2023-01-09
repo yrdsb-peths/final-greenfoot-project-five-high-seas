@@ -11,6 +11,7 @@ public class Penguin extends Actor
     // Sets speed of movement to 4 and creates gravity
     public int speed = 5;
     public int gravity;
+    public int health = 5;
     
     public int snowballSpeed = 20;
     // Sets penguin to face right and creates arrays storing
@@ -40,6 +41,11 @@ public class Penguin extends Actor
     GreenfootImage fallingLeft = new
         GreenfootImage("images/falling_penguin_jetpack.png");
     
+    GreenfootImage hurtRight = new
+        GreenfootImage("images/penguin_hurt.png");
+    GreenfootImage hurtLeft = new
+        GreenfootImage("images/penguin_hurt.png");
+    
     public Penguin()
     {
         // Sets penguin image to idle facing right when a
@@ -48,6 +54,7 @@ public class Penguin extends Actor
             idleImage.getHeight()/30);
         
         animationSpeed.mark();
+        hurtSpeed.mark();
         setImage(idleImage);
         
         // Creates an image of idle penguin FACING LEFT
@@ -89,6 +96,13 @@ public class Penguin extends Actor
         fallingLeft.mirrorHorizontally();
         fallingLeft.scale(idleImage.getWidth(),
             idleImage.getHeight());
+        
+        hurtRight.scale(idleImage.getWidth(),
+            idleImage.getHeight());
+        
+        hurtLeft.mirrorHorizontally();
+        hurtLeft.scale(idleImage.getWidth(),
+            idleImage.getHeight());
     }
     
     /**
@@ -100,49 +114,56 @@ public class Penguin extends Actor
     private int time = 0;
     public void act()
     {
-        // Checks if on a platform, if not the penguin falls
-        checkFall();
-        // Using "a" and left arrow keys to move left
-        if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))
+        if(!isTouching(Enemy.class))
         {
-            setLocation(getX() - speed, getY());
-            facingDirection = "left";
-            animateWalk();
-            snowballSpeed = -20;
-        }
-        // Using "d" and right arrow keys to move right
-        if(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d"))
-        {
-            setLocation(getX() + speed, getY());
-            facingDirection = "right";
-            animateWalk();
-            snowballSpeed = 20;
-        }
-        // Using "w" and up arrow keys to move up
-        if(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w"))
-        {
-            setLocation(getX(), getY() - speed - gravity);
-            flyDirection();
-        }
-        // If the spacebar is pressed and 5 cycles have
-        // passed, create a snowball object at same location
-        // as the penguin, firing the snowball
-        if(Greenfoot.isKeyDown("space"))
-        {
-            if(time <= 0) 
+            // Checks if on a platform, if not the penguin falls
+            checkFall();
+            // Using "a" and left arrow keys to move left
+            if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))
             {
-                time = 5;
-                getWorld().addObject(new 
-                    Snowball(snowballSpeed), getX(),
-                    getY());
-                
-            }   
-            else 
+                setLocation(getX() - speed, getY());
+                facingDirection = "left";
+                animateWalk();
+                snowballSpeed = -20;
+            }
+            // Using "d" and right arrow keys to move right
+            if(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d"))
             {
-                time--;
+                setLocation(getX() + speed, getY());
+                facingDirection = "right";
+                animateWalk();
+                snowballSpeed = 20;
+            }
+            // Using "w" and up arrow keys to move up
+            if(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w"))
+            {
+                setLocation(getX(), getY() - speed - gravity);
+                flyDirection();
+            }
+            // If the spacebar is pressed and 5 cycles have
+            // passed, create a snowball object at same location
+            // as the penguin, firing the snowball
+            if(Greenfoot.isKeyDown("space"))
+            {
+                if(time <= 0) 
+                {
+                    time = 5;
+                    getWorld().addObject(new 
+                        Snowball(snowballSpeed), getX(),
+                        getY());
+                    
+                }   
+                else 
+                {
+                    time--;
+                }
             }
         }
         
+        if(isTouching(Enemy.class))
+        {
+            getsHurt();
+        }
     }
     
     public void checkFall()
@@ -249,6 +270,37 @@ public class Penguin extends Actor
             setImage(fallingLeft);
         }
     }
+    SimpleTimer hurtImageSpeed = new SimpleTimer();
+    SimpleTimer hurtSpeed = new SimpleTimer();
+    public void getsHurt()
+    {
+        
+        if(hurtSpeed.millisElapsed() >= 200)
+        {
+            health--;
+        }
+        hurtSpeed.mark();
+        if(health == 0)
+        {
+            dies();
+        }
+        if(hurtImageSpeed.millisElapsed() <= 5000)
+        {
+            if(facingDirection.equals("right"))
+            {
+                setImage(hurtRight);
+            }
+            if(facingDirection.equals("left"))
+            {
+                setImage(hurtLeft);
+            }
+            hurtImageSpeed.mark();
+        }
+    }
     
-    
+    public void dies()
+    {
+        MyWorld world = (MyWorld) getWorld();
+        world.removeObject(this);
+    }
 }

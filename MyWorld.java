@@ -50,6 +50,11 @@ public class MyWorld extends World
         int x = Greenfoot.getRandomNumber(600);
         int y = Greenfoot.getRandomNumber(350);
         addObject(snowman, x, y);
+        
+        Enemy snowman2 = new Enemy();
+        int x2 = Greenfoot.getRandomNumber(600);
+        int y2 = Greenfoot.getRandomNumber(350);
+        addObject(snowman2, x2, y2);
     }
 
     /**
