@@ -55,6 +55,7 @@ public class Penguin extends Actor
         
         animationSpeed.mark();
         hurtSpeed.mark();
+        hurtImageSpeed.mark();
         setImage(idleImage);
         
         // Creates an image of idle penguin FACING LEFT
@@ -114,51 +115,49 @@ public class Penguin extends Actor
     private int time = 0;
     public void act()
     {
-        if(!isTouching(Enemy.class))
+        // Checks if on a platform, if not the penguin falls
+        checkFall();
+        // Using "a" and left arrow keys to move left
+        if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))
         {
-            // Checks if on a platform, if not the penguin falls
-            checkFall();
-            // Using "a" and left arrow keys to move left
-            if(Greenfoot.isKeyDown("left") || Greenfoot.isKeyDown("a"))
+            setLocation(getX() - speed, getY());
+            facingDirection = "left";
+            animateWalk();
+            snowballSpeed = -20;
+        }
+        // Using "d" and right arrow keys to move right
+        if(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d"))
+        {
+            setLocation(getX() + speed, getY());
+            facingDirection = "right";
+            animateWalk();
+            snowballSpeed = 20;
+        }
+        // Using "w" and up arrow keys to move up
+        if(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w"))
+        {
+            setLocation(getX(), getY() - speed - gravity);
+            flyDirection();
+        }
+        // If the spacebar is pressed and 5 cycles have
+        // passed, create a snowball object at same location
+        // as the penguin, firing the snowball
+        if(Greenfoot.isKeyDown("space"))
+        {
+            if(time <= 0) 
             {
-                setLocation(getX() - speed, getY());
-                facingDirection = "left";
-                animateWalk();
-                snowballSpeed = -20;
-            }
-            // Using "d" and right arrow keys to move right
-            if(Greenfoot.isKeyDown("right") || Greenfoot.isKeyDown("d"))
+                time = 5;
+                getWorld().addObject(new 
+                    Snowball(snowballSpeed), getX(),
+                    getY());
+                
+            }   
+            else 
             {
-                setLocation(getX() + speed, getY());
-                facingDirection = "right";
-                animateWalk();
-                snowballSpeed = 20;
-            }
-            // Using "w" and up arrow keys to move up
-            if(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w"))
-            {
-                setLocation(getX(), getY() - speed - gravity);
-                flyDirection();
-            }
-            // If the spacebar is pressed and 5 cycles have
-            // passed, create a snowball object at same location
-            // as the penguin, firing the snowball
-            if(Greenfoot.isKeyDown("space"))
-            {
-                if(time <= 0) 
-                {
-                    time = 5;
-                    getWorld().addObject(new 
-                        Snowball(snowballSpeed), getX(),
-                        getY());
-                    
-                }   
-                else 
-                {
-                    time--;
-                }
+                time--;
             }
         }
+        
         
         if(isTouching(Enemy.class))
         {
@@ -223,7 +222,8 @@ public class Penguin extends Actor
     {
         // If penguin is not on ground or 42 milliseconds
         // has not passed, do not animate the walk
-        if(animationSpeed.millisElapsed() <= 42 || !onGround())
+        if(animationSpeed.millisElapsed() <= 42 || 
+            !onGround())
         {
             return;
         }
@@ -270,12 +270,14 @@ public class Penguin extends Actor
             setImage(fallingLeft);
         }
     }
+    
     SimpleTimer hurtImageSpeed = new SimpleTimer();
     SimpleTimer hurtSpeed = new SimpleTimer();
     public void getsHurt()
     {
         
-        if(hurtSpeed.millisElapsed() >= 200)
+        hurtImageSpeed.mark();
+        if(hurtSpeed.millisElapsed() >= 100)
         {
             health--;
         }
@@ -284,8 +286,9 @@ public class Penguin extends Actor
         {
             dies();
         }
-        if(hurtImageSpeed.millisElapsed() <= 5000)
+        if(hurtSpeed.millisElapsed() <= 5000)
         {
+            
             if(facingDirection.equals("right"))
             {
                 setImage(hurtRight);
@@ -294,7 +297,8 @@ public class Penguin extends Actor
             {
                 setImage(hurtLeft);
             }
-            hurtImageSpeed.mark();
+            
+            //hurtImageSpeed.mark();
         }
     }
     
