@@ -55,7 +55,7 @@ public class Penguin extends Actor
         
         animationSpeed.mark();
         hurtSpeed.mark();
-        hurtImageSpeed.mark();
+        //hurtImageSpeed.mark();
         setImage(idleImage);
         
         // Creates an image of idle penguin FACING LEFT
@@ -158,10 +158,18 @@ public class Penguin extends Actor
             }
         }
         
-        
+        MyWorld world = (MyWorld) getWorld();
         if(isTouching(Enemy.class))
         {
             getsHurt();
+        }
+        if(health > 0)
+        {
+            showHealth();
+        }
+        else
+        {
+            world.removeObject(currentHealth);
         }
     }
     
@@ -271,12 +279,11 @@ public class Penguin extends Actor
         }
     }
     
-    SimpleTimer hurtImageSpeed = new SimpleTimer();
+    SimpleTimer labelDisplay = new SimpleTimer();
     SimpleTimer hurtSpeed = new SimpleTimer();
     public void getsHurt()
     {
         
-        hurtImageSpeed.mark();
         if(hurtSpeed.millisElapsed() >= 100)
         {
             health--;
@@ -297,14 +304,35 @@ public class Penguin extends Actor
             {
                 setImage(hurtLeft);
             }
-            
-            //hurtImageSpeed.mark();
         }
+        
+        
     }
     
     public void dies()
     {
         MyWorld world = (MyWorld) getWorld();
         world.removeObject(this);
+    }
+    Label currentHealth = new Label(0, 50);
+    public void showHealth()
+    {
+        
+        labelDisplay.mark();
+        currentHealth.setValue(health);
+        
+        MyWorld world = (MyWorld) getWorld();
+        world.addObject(currentHealth, 0, 0);
+        if(labelDisplay.millisElapsed() <= 1000)
+        {
+            
+            currentHealth.setLocation(getX(), getY() - 50);
+        }
+        else
+        {
+            world.removeObject(currentHealth);
+        }
+        
+        labelDisplay.mark();
     }
 }
