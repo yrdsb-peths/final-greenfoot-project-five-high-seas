@@ -50,8 +50,8 @@ public class Penguin extends Actor
     {
         // Sets penguin image to idle facing right when a
         // OBJECT is created and then scales it down
-        idleImage.scale(idleImage.getWidth()/30, 
-            idleImage.getHeight()/30);
+        idleImage.scale(idleImage.getWidth()/35, 
+            idleImage.getHeight()/35);
         
         animationSpeed.mark();
         hurtSpeed.mark();
@@ -314,7 +314,7 @@ public class Penguin extends Actor
         MyWorld world = (MyWorld) getWorld();
         world.removeObject(this);
     }
-    Label currentHealth = new Label(0, 50);
+    Label currentHealth = new Label(0, 40);
     public void showHealth()
     {
         
@@ -326,7 +326,7 @@ public class Penguin extends Actor
         if(labelDisplay.millisElapsed() <= 1000)
         {
             
-            currentHealth.setLocation(getX(), getY() - 50);
+            currentHealth.setLocation(getX(), getY() - 35);
         }
         else
         {
