@@ -9,6 +9,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 public class MyWorld extends World
 {
     public int score = 0;
+    public static int highScore;
+    public static int gameScore;
     Label scoreLabel;
 
     GreenfootImage background = new 
@@ -34,16 +36,23 @@ public class MyWorld extends World
         
         spawnSnowman();
         scoreLabel = new Label(0, 80);
-        addObject(scoreLabel, 50, 50);
+        addObject(scoreLabel, 50, 40);
 
         prepare();
+        
+        
     }
 
     public void increaseScore()
     {
         // Increases score by 1 and displays on screen
         score++;
+        gameScore = score;
         scoreLabel.setValue(score);
+        if(score >= highScore)
+        {
+            highScore = score;
+        }
     }
 
     public void spawnSnowman()
@@ -65,25 +74,28 @@ public class MyWorld extends World
     {
         Platform platform = new Platform();
         //addObject(platform,98,395);
-        
+
         Platform platform2 = new Platform();
         //addObject(platform2,500,395);
-        Platform platform3 = new Platform();
-        addObject(platform3,508,222);
+        Platform platform3 = new Platform(150, 20);
+        addObject(platform3,538,222);
         Platform platform4 = new Platform();
         addObject(platform4,232,130);
-        Platform platform5 = new Platform();
-        addObject(platform5,526,98);
+        Platform platform5 = new Platform(150, 20);
+        addObject(platform5,500,98);
         Platform platform6 = new Platform();
         //addObject(platform6,300, 395);
-        
+
         Platform testPlatform = new Platform(600, 20);
         addObject(testPlatform, 300, 395);
-        
+
         Platform testPlatform2 = new Platform(500, 20);
         addObject(testPlatform2, 300, 300);
-        
+
         Platform testPlatform3 = new Platform();
-        addObject(testPlatform3, 200, 222);
+        addObject(testPlatform3, 300, 222);
+        
+        Platform testPlatform4 = new Platform(150, 20);
+        addObject(testPlatform4, 75, 222);
     }
 }

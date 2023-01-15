@@ -4,7 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Write a description of class Shooter here.
  * 
  * @author (Vincent) 
- * @version (version3 | 12/22/2022)
+ * @version (version4 | 1/13/2022)
  */
 public class Penguin extends Actor
 {
@@ -106,6 +106,13 @@ public class Penguin extends Actor
             idleImage.getHeight());
     }
     
+    public Penguin(int numScale)
+    {
+        idleImage.scale(idleImage.getWidth()/numScale, 
+            idleImage.getHeight()/numScale);
+        
+        setImage(idleImage);
+    }
     /**
      * Act - do whatever the Shooter wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -311,8 +318,12 @@ public class Penguin extends Actor
     
     public void dies()
     {
+        
         MyWorld world = (MyWorld) getWorld();
         world.removeObject(this);
+        
+        GameOver deathScreen = new GameOver();
+        Greenfoot.setWorld(deathScreen);
     }
     Label currentHealth = new Label(0, 40);
     public void showHealth()
