@@ -15,7 +15,7 @@ public class MyWorld extends World
 
     GreenfootImage background = new 
         GreenfootImage("bg-icebergs-1.png");
-    
+        
     Penguin penguin  = new Penguin();
     /**
      * Constructor for objects of class MyWorld.
@@ -23,7 +23,7 @@ public class MyWorld extends World
      */
 
     public MyWorld()
-    {    
+    {
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1);
         background.scale(600, 400);
@@ -37,9 +37,10 @@ public class MyWorld extends World
         spawnSnowman();
         scoreLabel = new Label(0, 80);
         addObject(scoreLabel, 50, 40);
-
+        
         prepare();
         
+        gameScore = 0;
         
     }
 

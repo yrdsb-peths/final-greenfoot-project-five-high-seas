@@ -26,16 +26,22 @@ public class GameOver extends World
         
         addObject(titleLabel, getWidth()/2, (getHeight()/2) 
             - (getHeight()/4));
-        addObject(description, getWidth()/2, (getHeight()/4) 
-            + (getHeight()/2));
+        addObject(description, getWidth()/2, 315);
         
-        Label highScoreLabel = new Label(currentHighScore, 100);
-        addObject(highScoreLabel, getWidth()/3, getHeight()/2);
-        /*
-        Label currentScoreLabel = new Label(currentScore, 100);
-        addObject(currentScoreLabel, getWidth()/2 + getWidth()/3,
-            getHeight()/2);
-        */
+        String highScore = "High Score:";
+        Label highScoreWord = new Label(highScore, 50);
+        addObject(highScoreWord, 250, getHeight()/2);
+        
+        Label highScoreLabel = new Label(currentHighScore, 60);
+        addObject(highScoreLabel, 395, getHeight()/2);
+        
+        String score = "Score:";
+        Label scoreWord = new Label(score, 50);
+        addObject(scoreWord, 300, 250);
+        
+        Label currentScoreLabel = new Label(currentScore, 60);
+        addObject(currentScoreLabel, 395, 250);
+        
     }
     
     public void act()

@@ -19,6 +19,9 @@ public class Penguin extends Actor
     String facingDirection = "right";
     SimpleTimer animationSpeed = new SimpleTimer();
     
+    GreenfootSound jetpackSound = new
+        GreenfootSound("jetpacktest.mp3");
+    
     // Creates arrays for walk cycles left and right
     GreenfootImage[] walkingRight = new GreenfootImage[4];
     GreenfootImage[] walkingLeft = new GreenfootImage[4];
@@ -143,8 +146,13 @@ public class Penguin extends Actor
         // Using "w" and up arrow keys to move up
         if(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w"))
         {
+            jetpackSound.playLoop();
             setLocation(getX(), getY() - speed - gravity);
             flyDirection();
+        }
+        else
+        {
+            jetpackSound.stop();
         }
         // If the spacebar is pressed and 5 cycles have
         // passed, create a snowball object at same location
