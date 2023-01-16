@@ -4,7 +4,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * Write a description of class Shooter here.
  * 
  * @author (Vincent) 
- * @version (version3 | 12/22/2022)
+ * @version (version4 | 1/13/2022)
  */
 public class Penguin extends Actor
 {
@@ -18,6 +18,9 @@ public class Penguin extends Actor
     // 5 total images to animate walk cycle
     String facingDirection = "right";
     SimpleTimer animationSpeed = new SimpleTimer();
+    
+    GreenfootSound jetpackSound = new
+        GreenfootSound("jetpacktest.mp3");
     
     // Creates arrays for walk cycles left and right
     GreenfootImage[] walkingRight = new GreenfootImage[4];
@@ -50,8 +53,8 @@ public class Penguin extends Actor
     {
         // Sets penguin image to idle facing right when a
         // OBJECT is created and then scales it down
-        idleImage.scale(idleImage.getWidth()/30, 
-            idleImage.getHeight()/30);
+        idleImage.scale(idleImage.getWidth()/35, 
+            idleImage.getHeight()/35);
         
         animationSpeed.mark();
         hurtSpeed.mark();
@@ -106,6 +109,13 @@ public class Penguin extends Actor
             idleImage.getHeight());
     }
     
+    public Penguin(int numScale)
+    {
+        idleImage.scale(idleImage.getWidth()/numScale, 
+            idleImage.getHeight()/numScale);
+        
+        setImage(idleImage);
+    }
     /**
      * Act - do whatever the Shooter wants to do. This method is called whenever
      * the 'Act' or 'Run' button gets pressed in the environment.
@@ -136,8 +146,13 @@ public class Penguin extends Actor
         // Using "w" and up arrow keys to move up
         if(Greenfoot.isKeyDown("up") || Greenfoot.isKeyDown("w"))
         {
+            jetpackSound.playLoop();
             setLocation(getX(), getY() - speed - gravity);
             flyDirection();
+        }
+        else
+        {
+            jetpackSound.stop();
         }
         // If the spacebar is pressed and 5 cycles have
         // passed, create a snowball object at same location
@@ -311,10 +326,14 @@ public class Penguin extends Actor
     
     public void dies()
     {
+        
         MyWorld world = (MyWorld) getWorld();
         world.removeObject(this);
+        
+        GameOver deathScreen = new GameOver();
+        Greenfoot.setWorld(deathScreen);
     }
-    Label currentHealth = new Label(0, 50);
+    Label currentHealth = new Label(0, 40);
     public void showHealth()
     {
         
@@ -326,7 +345,7 @@ public class Penguin extends Actor
         if(labelDisplay.millisElapsed() <= 1000)
         {
             
-            currentHealth.setLocation(getX(), getY() - 50);
+            currentHealth.setLocation(getX(), getY() - 35);
         }
         else
         {

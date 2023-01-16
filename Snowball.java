@@ -11,6 +11,8 @@ public class Snowball extends Actor
     // Set the inital speed of the snowball and image
     public int speed = 20;
     
+    GreenfootSound snowballSound = new
+        GreenfootSound("snowball.mp3");
     GreenfootImage snowball = new
         GreenfootImage("images/temp_snowball.png");
     
@@ -21,6 +23,7 @@ public class Snowball extends Actor
         snowball.scale(snowball.getWidth()/60, 
             snowball.getHeight()/60);
         setImage(snowball);
+        snowballSound.play();
         speed = snowballSpeed;
     }
     

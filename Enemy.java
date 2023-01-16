@@ -28,8 +28,8 @@ public class Enemy extends Actor
     
     public Enemy()
     {
-        snowmanFull.scale(snowmanFull.getWidth()/3, 
-            snowmanFull.getHeight()/3);
+        snowmanFull.scale(snowmanFull.getWidth()/4, 
+            snowmanFull.getHeight()/4);
         
         setImage(snowmanFull);
     }
@@ -155,7 +155,7 @@ public class Enemy extends Actor
         GreenfootImage currentSnowman = new 
             GreenfootImage("images/snowman/snowman" 
             + health + ".png");
-        currentSnowman.scale(25 * health, 24 * health);
+        currentSnowman.scale(21 * health, 20 * health);
         setImage(currentSnowman);
     }
 }
