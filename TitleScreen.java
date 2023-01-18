@@ -38,7 +38,7 @@ public class TitleScreen extends World
         
         prepare();
         
-        // bgMusic.play();
+        bgMusic.play();
     }
 
     public void act()
@@ -46,6 +46,7 @@ public class TitleScreen extends World
         // Starts the game when user presses space bar
         if(Greenfoot.isKeyDown("space"))
         {
+            bgMusic.stop();
             Instructions gameWorld = new Instructions();
             Greenfoot.setWorld(gameWorld);
         }
