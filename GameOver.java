@@ -49,8 +49,10 @@ public class GameOver extends World
         // Starts the game when user presses space bar
         if(Greenfoot.isKeyDown("space"))
         {
+            
             MyWorld gameWorld = new MyWorld();
             Greenfoot.setWorld(gameWorld);
         }
     }
+    
 }
