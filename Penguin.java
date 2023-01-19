@@ -150,6 +150,10 @@ public class Penguin extends Actor
             setLocation(getX(), getY() - speed - gravity);
             flyDirection();
         }
+        else
+        {
+            jetpackSound.stop();
+        }
         // If the spacebar is pressed and 5 cycles have
         // passed, create a snowball object at same location
         // as the penguin, firing the snowball

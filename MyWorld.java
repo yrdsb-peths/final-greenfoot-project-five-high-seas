@@ -29,12 +29,14 @@ public class MyWorld extends World
         background.scale(600, 400);
 
         //Penguin penguin  = new Penguin();
-        addObject(penguin, 300, 300);
+        addObject(penguin, 50, 350);
 
-        Enemy snowman = new Enemy();
-        addObject(snowman, 150, 100);
+        Enemy snowman1 = new Enemy();
+        addObject(snowman1, 150, 100);
         
-        spawnSnowman();
+        Enemy snowman2 = new Enemy();
+        addObject (snowman2, 300, 250);
+        
         scoreLabel = new Label(0, 80);
         addObject(scoreLabel, 50, 40);
         

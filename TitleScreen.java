@@ -13,10 +13,15 @@ public class TitleScreen extends World
     
     GreenfootSound bgMusic = new 
         GreenfootSound("bgmusic.mp3");
+
+    GreenfootSound buttonSound = new 
+        GreenfootSound("button.mp3");
+        
+    GreenfootImage penguinImage = new
+        GreenfootImage("images/flying_penguin_jetpack.png");
     
-    GreenfootImage penguinImage = new 
-        GreenfootImage("images/idle_penguin_jetpack.png");
     
+        
     /**
      * Constructor for objects of class TitleScreen.
      * This is the title screen for the "Jetpack Penguin"
@@ -26,15 +31,17 @@ public class TitleScreen extends World
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1); 
-
-        addObject(titleLabel, getWidth()/2, 75);
-        addObject(description, getWidth()/2, 350);
         
-        penguinImage.scale(penguinImage.getWidth()/6, 
-            penguinImage.getHeight()/6);
+        addObject(titleLabel, 300, 50);
+        addObject(description, getWidth()/2, 360);
+        
+        penguinImage.scale(penguinImage.getWidth()/4, 
+            penguinImage.getHeight()/4);
         
         getBackground().drawImage(penguinImage, 
-            225, 135);
+            175, 90);   
+        
+        
         
         prepare();
         
@@ -47,6 +54,7 @@ public class TitleScreen extends World
         if(Greenfoot.isKeyDown("space"))
         {
             bgMusic.stop();
+            buttonSound.play();
             Instructions gameWorld = new Instructions();
             Greenfoot.setWorld(gameWorld);
         }
