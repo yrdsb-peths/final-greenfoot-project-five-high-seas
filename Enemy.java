@@ -24,7 +24,7 @@ public class Enemy extends Actor
     public int lookForGround = spriteHeight/2;
     
     GreenfootImage snowmanFull = new 
-    GreenfootImage("images/snowman/snowman3.png");
+        GreenfootImage("images/snowman/snowman3.png");
     
     public Enemy()
     {

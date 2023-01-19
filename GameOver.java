@@ -8,10 +8,13 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  */
 public class GameOver extends World
 {
-    Label titleLabel = new Label("Game Over", 90);
-    Label description = new Label("Press space to restart", 50);
+    Label titleLabel = new Label("Game Over", 125);
+    Label description = new Label("Press enter to restart", 50);
     public int currentHighScore;
     public int currentScore;
+    
+    GreenfootSound buttonSound = new 
+        GreenfootSound("button.mp3");
     /**
      * Constructor for objects of class GameOver.
      * 
@@ -24,9 +27,8 @@ public class GameOver extends World
         currentHighScore = MyWorld.highScore;
         currentScore = MyWorld.gameScore;
         
-        addObject(titleLabel, getWidth()/2, (getHeight()/2) 
-            - (getHeight()/4));
-        addObject(description, getWidth()/2, 315);
+        addObject(titleLabel, getWidth()/2, 75);
+        addObject(description, getWidth()/2, 350);
         
         String highScore = "High Score:";
         Label highScoreWord = new Label(highScore, 50);
@@ -47,9 +49,9 @@ public class GameOver extends World
     public void act()
     {
         // Starts the game when user presses space bar
-        if(Greenfoot.isKeyDown("space"))
+        if(Greenfoot.isKeyDown("enter"))
         {
-            
+            buttonSound.play();
             MyWorld gameWorld = new MyWorld();
             Greenfoot.setWorld(gameWorld);
         }
